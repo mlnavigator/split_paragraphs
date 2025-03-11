@@ -1,5 +1,3 @@
-import pytest
-
 from .jaccar_splitter import split_text, jaccar_tokenize, calc_sim_texts_jaccar, aggregate_parts_sim_jaccar, split_paragraphs_jaccar
 from .splitter import construct_series
 
