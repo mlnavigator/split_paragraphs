@@ -54,4 +54,22 @@ print(parts)
 
 В модуле есть возможность считать BERT эмбеддинги на основе маленького берта sergeyzh/LaBSE-ru-turbo [https://huggingface.co/sergeyzh/LaBSE-ru-turbo](https://huggingface.co/sergeyzh/LaBSE-ru-turbo)
 
-Но на CPU даже маленькие берты считаются очень долго и их не имеет смысла использовать, поэтому векторная близость на бертах для сегментации в модуле не реализована
+Если дополнительно установить torch и transformers
+
+```python3
+from split_paragraphs.bert_similarity import model, tokenizer, get_bert_embedding
+
+text = """Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n\nLorem Ipsum has been the industry's standard dummy text"""
+
+vect = get_bert_embedding(text)
+print(len(vect))
+>> 768
+
+# Если есть видеокарта, то можно вычислять быстрее
+model.to('cuda')
+# после этого станет быстрее
+vect = get_bert_embedding(text)
+```
+Но на CPU даже маленькие берты считаются достаточно долго и их не имеет смысла использовать при сегментации, 
+т.к. векторов придется считать довольно много. 
+поэтому векторная близость на бертах для сегментации в модуле не реализована

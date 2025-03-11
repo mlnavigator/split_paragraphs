@@ -2,16 +2,10 @@ import torch
 from transformers import AutoTokenizer, AutoModel
 import numpy as np
 
-tokenizer = None
-model = None
-
-def load_model():
-    global model
-    global tokenizer
-    tokenizer = AutoTokenizer.from_pretrained("sergeyzh/LaBSE-ru-turbo")
-    model = AutoModel.from_pretrained("sergeyzh/LaBSE-ru-turbo")
-    model.eval()
-    model.to('cpu')
+tokenizer = AutoTokenizer.from_pretrained("sergeyzh/LaBSE-ru-turbo")
+model = AutoModel.from_pretrained("sergeyzh/LaBSE-ru-turbo")
+model.eval()
+model.to('cpu')
 
 
 def get_bert_embedding(text: str) -> np.array:
@@ -22,9 +16,6 @@ def get_bert_embedding(text: str) -> np.array:
     """
     global model
     global tokenizer
-    if not model is None or tokenizer is None:
-        load_model()
-    # print('get_bert_embedding', text)
     text_tokenized = tokenizer(text, return_tensors='pt', truncation=True)
     for k,v in text_tokenized.items():
         text_tokenized[k] = v.to(model.device)
