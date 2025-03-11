@@ -1,8 +1,12 @@
 # python3.7+
+numpy
+navec
+
+# tested with
+# python3.10
+# navec==0.10.0
+# numpy==1.26.2
 
 # for bert embeddings:
 # torch
 # transformers
-
-numpy
-navec
